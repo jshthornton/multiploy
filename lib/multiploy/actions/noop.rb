@@ -1,4 +1,0 @@
-
-#
-class Noop
-end
