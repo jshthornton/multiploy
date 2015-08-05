@@ -23,6 +23,8 @@ module Multiploy
     #
     class DateTimeNaming
       def name
+        datetime = DateTime.now
+        datetime.strftime('%Y%m%d%H%M%S')
       end
     end
 
