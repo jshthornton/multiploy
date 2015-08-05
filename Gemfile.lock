@@ -1,0 +1,56 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ast (2.1.0)
+    astrolabe (1.3.1)
+      parser (~> 2.2)
+    colorize (0.7.7)
+    diff-lcs (1.2.5)
+    httparty (0.13.5)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
+    json (1.8.3)
+    multi_xml (0.5.5)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.9.2)
+    parser (2.2.2.6)
+      ast (>= 1.1, < 3.0)
+    powerpack (0.1.1)
+    rainbow (2.0.0)
+    rspec (3.3.0)
+      rspec-core (~> 3.3.0)
+      rspec-expectations (~> 3.3.0)
+      rspec-mocks (~> 3.3.0)
+    rspec-core (3.3.2)
+      rspec-support (~> 3.3.0)
+    rspec-expectations (3.3.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.3.0)
+    rspec-mocks (3.3.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.3.0)
+    rspec-support (3.3.0)
+    rubocop (0.32.1)
+      astrolabe (~> 1.3)
+      parser (>= 2.2.2.5, < 3.0)
+      powerpack (~> 0.1)
+      rainbow (>= 1.99.1, < 3.0)
+      ruby-progressbar (~> 1.4)
+    ruby-progressbar (1.7.5)
+    sshkit (1.7.1)
+      colorize (>= 0.7.0)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  httparty
+  rspec (~> 3.3.0)
+  rubocop
+  sshkit (~> 1.7.1)
+
+BUNDLED WITH
+   1.10.6
