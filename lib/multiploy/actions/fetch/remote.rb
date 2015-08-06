@@ -4,7 +4,15 @@ module Multiploy
   module Fetch
     #
     class Remote
+      def valid_response?
+        validate_response == true ? true : false
+      end
+
       def validate_response
+        return 'Non-200 response' unless @response.code == 200
+        true
+      end
+
       end
 
       def execute
