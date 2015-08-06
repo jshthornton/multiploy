@@ -64,4 +64,30 @@ describe Multiploy::Fetch::Remote do
       expect(subject.response).to eq(response)
     end
   end
+
+  describe '#execute' do
+    context 'success' do
+      it 'returns response body' do
+        response = instance_double('HTTParty::Response', :code => 200, :body => 'hello')
+
+        allow(subject).to receive(:fetch)
+        allow(subject).to receive(:valid_response?).and_return(true)
+        allow(subject).to receive(:validate_response)
+
+        subject.response = response
+
+        expect(subject.execute).to eq(response.body)
+      end
+    end
+
+    context 'fail' do
+      it 'throws fail' do
+        allow(subject).to receive(:fetch)
+        allow(subject).to receive(:valid_response?).and_return(false)
+        allow(subject).to receive(:validate_response).and_return('Error Message')
+
+        expect { subject.execute }.to raise_error('Error Message')
+      end
+    end
+  end
 end

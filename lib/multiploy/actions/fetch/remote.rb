@@ -20,10 +20,11 @@ module Multiploy
       end
 
       def execute
-        # response = HTTParty.get('https://github.com/techinasia/server-cookbooks/archive/master.zip')
-        # validate_response(response)
+        fetch
 
-        # return response
+        fail validate_response unless valid_response?
+
+        @response.body
       end
     end
   end
