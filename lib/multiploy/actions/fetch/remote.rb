@@ -4,6 +4,8 @@ module Multiploy
   module Fetch
     #
     class Remote
+      attr_accessor :url, :http_options, :response
+
       def valid_response?
         validate_response == true ? true : false
       end
@@ -13,6 +15,8 @@ module Multiploy
         true
       end
 
+      def fetch
+        @response = HTTParty.get(@url, @http_options)
       end
 
       def execute

@@ -43,4 +43,25 @@ describe Multiploy::Fetch::Remote do
       end
     end
   end
+
+  describe '#fetch' do
+    it 'pass down @url and @http_options' do
+      allow(HTTParty).to receive(:get).and_return({})
+      expect(HTTParty).to receive(:get).with('test', {})
+
+      subject.url = 'test'
+      subject.http_options = {}
+
+      subject.fetch
+    end
+
+    it 'sets response' do
+      response = instance_double('HTTParty::Response', :code => 200)
+      allow(HTTParty).to receive(:get).and_return(response)
+
+      subject.fetch
+
+      expect(subject.response).to eq(response)
+    end
+  end
 end
