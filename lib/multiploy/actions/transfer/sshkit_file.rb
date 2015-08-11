@@ -4,7 +4,7 @@ module Multiploy
   module Transfer
     #
     class SSHKitFile
-      attr_accessor :hosts, :options, :local_path, :remote_path, :coordinator
+      attr_accessor :options, :local_path, :remote_path, :coordinator
 
       def backend_action
         local_path = @local_path
