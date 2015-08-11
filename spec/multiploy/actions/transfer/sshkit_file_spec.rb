@@ -5,19 +5,28 @@ describe Multiploy::Transfer::SSHKitFile do
   subject { described_class.new }
 
   describe '#execute' do
-    it 'sends upload block into each' do
-      backend = double('SSHKit::Backend::Netssh')
+    it 'calls each backend' do
       coordinator = double('SSHKit::Coordinator')
 
-      allow(coordinator).to receive(:each) do
+      expect(coordinator).to receive(:each)
 
-      end
+      subject.coordinator = coordinator
+      subject.execute
     end
   end
 
-  describe '@backend_action' do
+  describe '#backend_action' do
     it 'calls upload for backend' do
+      backend = Object.new
+      subject.local_path = 'hello'
+      subject.remote_path = 'world!'
 
+      allow(backend).to receive(:instance_exec).and_call_original
+      allow(backend).to receive(:upload!)
+
+      expect(backend).to receive(:upload!).with('hello', 'world!')
+
+      backend.instance_exec({}, &subject.backend_action)
     end
   end
 end

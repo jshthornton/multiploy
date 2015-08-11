@@ -6,12 +6,17 @@ module Multiploy
     class SSHKitFile
       attr_accessor :hosts, :options, :local_path, :remote_path, :coordinator
 
-      @backend_action = proc do |host|
-        upload! @local_path, @remote_path
+      def backend_action
+        local_path = @local_path
+        remote_path = @remote_path
+
+        proc do |host|
+          upload! local_path, remote_path
+        end
       end
 
       def execute
-        @coordinator.each @options @backend_action
+        @coordinator.each @options, backend_action
       end
     end
 
