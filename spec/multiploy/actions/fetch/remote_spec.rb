@@ -7,7 +7,7 @@ describe Multiploy::Fetch::Remote do
   describe '#validate_response' do
     context 'with invalid' do
       it 'returns string' do
-        response = instance_double('HTTParty::Response', :code => 500)
+        response = instance_double('HTTParty::Response', code: 500)
         subject.instance_variable_set(:@response, response)
 
         expect(subject.validate_response).to be_a(String)
@@ -16,7 +16,7 @@ describe Multiploy::Fetch::Remote do
 
     context 'with valid' do
       it 'return true' do
-        response = instance_double('HTTParty::Response', :code => 200)
+        response = instance_double('HTTParty::Response', code: 200)
         subject.instance_variable_set(:@response, response)
 
         expect(subject.validate_response).to eq(true)
@@ -56,7 +56,7 @@ describe Multiploy::Fetch::Remote do
     end
 
     it 'sets response' do
-      response = instance_double('HTTParty::Response', :code => 200)
+      response = instance_double('HTTParty::Response', code: 200)
       allow(HTTParty).to receive(:get).and_return(response)
 
       subject.fetch
@@ -68,7 +68,7 @@ describe Multiploy::Fetch::Remote do
   describe '#execute' do
     context 'success' do
       it 'returns response body' do
-        response = instance_double('HTTParty::Response', :code => 200, :body => 'hello')
+        response = instance_double('HTTParty::Response', code: 200, body: 'hello')
 
         allow(subject).to receive(:fetch)
         allow(subject).to receive(:valid_response?).and_return(true)

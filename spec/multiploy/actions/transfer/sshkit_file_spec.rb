@@ -1,6 +1,5 @@
 require_relative '../../../../lib/multiploy/actions/transfer/sshkit_file'
 
-
 describe Multiploy::Transfer::SSHKitFile do
   subject { described_class.new }
 

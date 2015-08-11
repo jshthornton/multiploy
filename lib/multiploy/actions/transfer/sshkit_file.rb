@@ -10,7 +10,7 @@ module Multiploy
         local_path = @local_path
         remote_path = @remote_path
 
-        proc do |host|
+        proc do |_host|
           upload! local_path, remote_path
         end
       end
@@ -26,7 +26,7 @@ module Multiploy
         instance = SSHKitFile.new
         instance.coordinator = Coordinator.new(@hosts)
 
-        return instance
+        instance
       end
     end
   end
