@@ -1,11 +1,11 @@
 require 'configuration'
 
 module Multiploy
-  class Configuration
+  class ConfigurationHelper
     attr_accessor :items
 
     def initialize
-      @items = ['fetch', 'store', 'transfer', 'deploy']
+      @items = ['core', 'fetch', 'store', 'transfer', 'deploy']
     end
 
     def load_default_config

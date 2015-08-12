@@ -1,6 +1,6 @@
-require_relative '../../lib/multiploy/configuration'
+require_relative '../../lib/multiploy/configuration_helper'
 
-describe Multiploy::Configuration do
+describe Multiploy::ConfigurationHelper do
   subject { described_class.new }
 
   describe '#load_default_config' do
