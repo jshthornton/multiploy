@@ -2,7 +2,7 @@ require_relative '../../../../lib/multiploy/actions/deploy/default'
 
 
 describe Multiploy::Deploy::DateTimeNaming do
-  subject { Multiploy::Deploy::DateTimeNaming.new }
+  subject { described_class.new }
 
   describe '#name' do
     it 'use current time' do
