@@ -1,5 +1,6 @@
 require 'sshkit'
 require 'date'
+require 'memoist'
 
 module Multiploy
   module Deploy
@@ -80,7 +81,17 @@ module Multiploy
     end
 
     #
-    class DateTimeNaming
+    class NamingAbstract
+      extend Memoist
+
+      def name
+      end
+
+      memoize :name
+    end
+
+    #
+    class DateTimeNaming < NamingAbstract
       def name
         datetime = DateTime.now
         datetime.strftime('%Y%m%d%H%M%S')
@@ -88,15 +99,24 @@ module Multiploy
     end
 
     #
-    class UUIDNaming
+    class UUIDNaming < NamingAbstract
       def name
         SecureRandom.uuid
       end
     end
 
     #
-    class CustomNaming
-      attr_accessor :name
+    class NamingFactory
+      def make(type)
+        case type
+        when 'datetime'
+          DateTimeNaming.new
+        when 'uuid'
+          UUIDNaming.new
+        else
+          fail 'Unknown naming mechanism'
+        end
+      end
     end
 
     #

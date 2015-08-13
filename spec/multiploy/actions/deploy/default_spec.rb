@@ -17,5 +17,14 @@ describe Multiploy::Deploy::DateTimeNaming do
       name = subject.name
       expect(name).to be_a(String)
     end
+
+    it 'is memoized' do
+      allow(DateTime).to receive(:now).and_call_original
+      expect(DateTime).to receive(:now).once
+
+      subject.name
+    end
+  end
+end
   end
 end
