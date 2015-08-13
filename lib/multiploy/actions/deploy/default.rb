@@ -5,61 +5,67 @@ require 'memoist'
 module Multiploy
   module Deploy
     #
-    class Default
-      def execute
-        # Setup
-        setup.execute
-
-        # Naming
-        release_name = release_namer.name
-
-        # Install
-        installer.execute
-
-        # Unpublish
-        unpublisher.execute
-
-        # Publish
-        publisher.execute
-      end
-    end
-
-    #
-    class DefaultFactory
-      def make
-        default = Default.new
-
-        # Setup
-        setup = default.setup = Multiploy::Organizer.new
+    class ActionFactory
+      def makeSetup(options)
         application_directory = SetupDirectory.new
-        # application_directory.path
+        application_directory.coordinator = options.coordinator
+        application_directory.options = options.options
+        application_directory.path = options.application_directory_path
 
         releases_directory = SetupDirectory.new
-        # releases_directory.path
+        releases_directory.path = "#{options.application_directory_path}/#{options.releases_directory_name}"
 
+        setup = Multiploy::Organizer.new
         setup.steps.push(application_directory, release_directory)
 
-        default.release_namer = DateTimeNaming.new
+        setup
+      end
 
-        # Install
-        installer = default.installer = Multiploy::Organizer.new
+      def makeInstall(options)
         release_directory = SetupDirectory.new
-        move_to_destination = MoveToDestination.new
-        delete_source = DeleteSource.new
+        release_directory.path = "#{options.application_directory_path}/#{options.releases_directory_name}/namer.name"
 
+        move_to_destination = MoveToDestination.new
+        move_to_destination.src_path = options.src_path
+        move_to_destination.dest_path = "#{options.application_directory_path}/#{options.releases_directory_name}/namer.name"
+
+        delete_source = DeleteSource.new
+        delete_source.path = options.src_path
+
+        installer = Multiploy::Organizer.new
         installer.steps.push(
           release_directory,
           move_to_destination,
           delete_source
         )
 
+        installer
+      end
+
+      def makeDeploy(options)
+        namer = NamingFactory.new.make(options.naming_mechanism)
+        options.namer = namer
+
+        # Setup
+        setup = makeSetup(options)
+
+        # Install
+        installer = makeInstall(options)
+
         # Unplublish
-        default.unpublisher = Unpublish.new
+        unpublisher = Unpublish.new
 
         # Publish
-        default.publisher = Publish.new
+        publisher = Publish.new
 
-        default
+        deploy = Multiploy::Organizer.new
+        deploy.steps.push(
+          setup,
+          installer,
+          unpublisher,
+          publisher
+        )
+        deploy
       end
     end
 
