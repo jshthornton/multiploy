@@ -17,6 +17,9 @@ describe Multiploy::Transfer::SSHKitFile do
   describe '#backend_action' do
     it 'calls upload for backend' do
       backend = Object.new
+      backend.define_singleton_method(:upload!) do |*args|
+      end
+
       subject.local_path = 'hello'
       subject.remote_path = 'world!'
 
