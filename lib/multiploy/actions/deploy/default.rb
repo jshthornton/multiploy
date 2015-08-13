@@ -1,9 +1,11 @@
 require 'sshkit'
 require 'date'
 require 'memoist'
+require_relative '../organizer'
 
 module Multiploy
   module Deploy
+
     #
     class ActionFactory
       def makeSetup(options)
@@ -16,7 +18,7 @@ module Multiploy
         releases_directory.path = "#{options.application_directory_path}/#{options.releases_directory_name}"
 
         setup = Multiploy::Organizer.new
-        setup.steps.push(application_directory, release_directory)
+        setup.steps.push(application_directory, releases_directory)
 
         setup
       end
