@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+require_relative '../lib/multiploy/cli'
+
+cli = Multiploy::CLI.new()
+cli.parse ARGV
+cli.run
