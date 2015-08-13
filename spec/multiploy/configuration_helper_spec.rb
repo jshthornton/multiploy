@@ -50,6 +50,8 @@ describe Multiploy::ConfigurationHelper do
       expect(a.hello).to eq('bob!')
       expect(a.default).to eq(true)
       expect(a.user).to eq(true)
+
+      expect(a.respond_to? :nothing).to eq(false)
     end
   end
 end
